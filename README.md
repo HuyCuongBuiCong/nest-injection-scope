@@ -1,5 +1,6 @@
 # INJECTION SCOPE
 
+Full article can be found [here](https://kelvinbz.medium.com/explore-injection-scopes-in-nestjs-03a5e708102a)
 In NestJS, components like database connections and services are often shared across all incoming requests. This design choice stems from the underlying architecture of NestJS, which doesn't create separate threads for each request. Sharing these resources is a safe and efficient approach in this context
 However, there are scenarios where you might intentionally want a new instance of a component for each request. This could be necessary for:
 Per-Request Caching: In applications like GraphQL, caching data specific to each request can enhance performance.
@@ -384,22 +385,18 @@ graph TD
 ```
 
 
-
-## TEST RESULTS
-
-
-```bash
-### Singleton
-GET http://localhost:3000/singleton
-
-### Transient
-GET http://localhost:3000/transient
-
-### Request
-GET http://localhost:3000/request
-
-```
-
 ## Conclusion
 
-In this example, we have demonstrated how to use the `@Injectable()` decorator to define the scope of a service in NestJS. By specifying the scope of a service, you can control how instances of that service are created and managed within your application. This can be useful for managing state, controlling resource usage, and ensuring that services behave as expected in different contexts. By understanding the different scopes available in NestJS, you can design your application to be more efficient, maintainable, and scalable.
+This NestJS application serves as a demonstration of the different injection scopes available: Singleton, Request, and Transient. By examining the behavior of the getOperationId() method under these scopes, we can observe how the lifecycle and sharing of service instances affect application performance and behavior.
+
+**Singleton Scope:**
+Services are instantiated once and shared across the entire application.
+The operationId remains consistent across all requests, demonstrating shared instance usage.
+
+**Request Scope:**
+A new instance of the service is created for each incoming request.
+The operationId is unique per request but consistent within the same request, ensuring isolation of request data.
+
+**Transient Scope:**
+A new instance of the service is created every time it is injected.
+The operationId is different every time it is accessed, even within the same request, demonstrating maximum flexibility and independence of instances.
