@@ -1,0 +1,8 @@
+### Singleton
+GET http://localhost:3000/singleton
+
+### Transient
+GET http://localhost:3000/transient
+
+### Request
+GET http://localhost:3000/request
